@@ -1,6 +1,11 @@
 # Kubernetes Local Testing Environment
 
 This repo contains a bunch of scripts to bring up a local Kubernetes environment (using [k3d](https://k3d.io/), which itself is a wrapper to bring up [k3s](https://k3s.io/) clusters) and a [Zot](https://zotregistry.dev/) image registry serving as a transparent pull-through cache.
+              
+## Prerequisites
+
+* You need to have [k3d](https://k3d.io)
+* You need to have Docker Compose
 
 ## Quick Start
 
