@@ -1,0 +1,58 @@
+distSpecVersion: "1.1.1"
+
+storage:
+  rootDirectory: /var/lib/zot
+  gc: true
+  gcDelay: "1h"
+  gcInterval: "1h" #24h
+  retention:
+    delay: "1h" #24h
+    policies:
+      - repositories: ["**/docker-io/**", "**/stackable/**"]
+        deleteReferrers: false
+        deleteUntagged: true
+        keepTags:
+          - pulledWithin: "1h"  # 30 days 720h
+  dedupe: true
+
+http:
+  address: "0.0.0.0"
+  port: "5000"
+
+log:
+  level: "info"
+
+extensions:
+  sync:
+    enable: true
+    registries:
+      - urls: ["https://docker.io"]
+        onDemand: true
+        maxRetries: 3
+        retryDelay: "5m"
+        tlsVerify: true
+        content:
+          - prefix: "**"
+            destination: "/docker-io"
+
+      - urls: ["https://oci.stackable.tech"]
+        onDemand: true
+        maxRetries: 3
+        retryDelay: "5m"
+        tlsVerify: true
+        content:
+          - prefix: "**"
+            destination: "/stackable"
+
+  search:
+    enable: true
+    "cve":
+      "updateInterval": "2h"
+
+  ui:
+    enable: true
+
+  metrics:
+    enable: true
+    prometheus:
+      path: "/metrics"

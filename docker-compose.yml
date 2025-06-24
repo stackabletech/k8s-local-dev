@@ -1,0 +1,21 @@
+services:
+  zot-cache:
+    image: ghcr.io/project-zot/zot:latest
+    container_name: zot-cache
+    restart: unless-stopped
+    command: ["serve", "/etc/zot/config.yaml"]
+    ports:
+      - "5000:5000"    # Registry API
+    volumes:
+      - ./config/zot-config.yaml:/etc/zot/config.yaml:ro
+      - zot-data:/var/lib/zot
+    networks:
+      - zot-network
+
+volumes:
+  zot-data:
+    driver: local
+
+networks:
+  zot-network:
+    driver: bridge
