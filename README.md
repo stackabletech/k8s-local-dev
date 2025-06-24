@@ -23,8 +23,8 @@ This repo contains a bunch of scripts to bring up a local Kubernetes environment
 ## Registry Cache
 
 The Zot registry caches images from:
-- Docker Hub (`docker.io`) → `/docker-io`
-- Stackable registry (`oci.stackable.tech`) → `/stackable`
+- Docker Hub (`docker.io`) → `/mirror/docker-io`
+- Stackable registry (`oci.stackable.tech`) → `/mirror/stackable`
 
 Features:
 - On-demand image synchronization
