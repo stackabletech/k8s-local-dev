@@ -4,15 +4,15 @@ storage:
   rootDirectory: /var/lib/zot
   gc: true
   gcDelay: "1h"
-  gcInterval: "1h" #24h
+  gcInterval: "24h"
   retention:
-    delay: "1h" #24h
+    delay: "24h"
     policies:
-      - repositories: ["**/docker-io/**", "**/stackable/**"]
+      - repositories: ["**/mirror/**"]
         deleteReferrers: false
         deleteUntagged: true
         keepTags:
-          - pulledWithin: "1h"  # 30 days 720h
+          - pulledWithin: "720h"  # 30 days
   dedupe: true
 
 http:
@@ -33,7 +33,7 @@ extensions:
         tlsVerify: true
         content:
           - prefix: "**"
-            destination: "/docker-io"
+            destination: "/mirror/docker-io"
 
       - urls: ["https://oci.stackable.tech"]
         onDemand: true
@@ -42,7 +42,7 @@ extensions:
         tlsVerify: true
         content:
           - prefix: "**"
-            destination: "/stackable"
+            destination: "/mirror/stackable"
 
   search:
     enable: true
