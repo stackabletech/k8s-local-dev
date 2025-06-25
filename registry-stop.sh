@@ -1,5 +1,7 @@
 #!/usr/bin/env -S bash -euo pipefail
-cd "$(dirname "$0")" || exit
+
+# Run from the directory that the script is in
+pushd "$(dirname "$0")"
 
 echo "Stopping Zot Registry Cache..."
 docker-compose down

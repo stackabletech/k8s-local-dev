@@ -1,6 +1,7 @@
 #!/usr/bin/env -S bash -euo pipefail
 
-cd "$(dirname "$0")" || exit
+# Run from the directory that the script is in
+pushd "$(dirname "$0")"
 
 echo "Cleaning up Zot Registry Cache..."
 echo "This will remove containers, networks, volumes, and cached images."
