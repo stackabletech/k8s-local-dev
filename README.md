@@ -1,13 +1,16 @@
 # Kubernetes Local Testing Environment
 
 This repo contains a bunch of scripts to bring up a local Kubernetes environment (using [k3d](https://k3d.io/), which itself is a wrapper to bring up [k3s](https://k3s.io/) clusters) and a [Zot](https://zotregistry.dev/) image registry serving as a transparent pull-through cache.
-              
+
 ## Prerequisites
 
 * You need to have [k3d](https://k3d.io)
 * You need to have Docker Compose
 
 ## Quick Start
+
+> [!NOTE]
+> These scripts can be invoked from any directory.
 
 1. Start the Zot registry:
    ```bash
@@ -52,7 +55,7 @@ These images should now appear in the Zot Web UI.
 ## Management Scripts
 
 - `registry-start.sh`: Start registry services
-- `registry-stop.sh`: Stop registry services  
+- `registry-stop.sh`: Stop registry services
 - `registry-logs.sh`: View (tail) registry logs
 - `registry-cleanup.sh`: Clean up registry data (including the volume with the mirrored images)
 
