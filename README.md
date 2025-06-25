@@ -11,12 +11,12 @@ This repo contains a bunch of scripts to bring up a local Kubernetes environment
 
 > [!NOTE]
 > These scripts can be invoked from any directory.
+> Take note of the k3d config path emitted from the start script.
 
 1. Start the Zot registry:
    ```bash
    ./registry-start.sh
    ```
-
 2. Create the k3d cluster:
    ```bash
    # k3d cluster create --config k3d-config.yaml [NAME]
