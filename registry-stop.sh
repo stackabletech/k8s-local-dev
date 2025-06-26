@@ -4,5 +4,5 @@
 pushd "$(dirname "$0")"
 
 echo "Stopping Zot Registry Cache..."
-docker-compose down
+docker compose down
 echo "Zot Registry Cache stopped!"

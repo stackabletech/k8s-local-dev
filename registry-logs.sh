@@ -4,4 +4,4 @@
 pushd "$(dirname "$0")"
 
 echo "Showing Zot Registry Cache logs..."
-docker-compose logs -f zot-cache
+docker compose logs -f zot-cache

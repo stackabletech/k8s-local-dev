@@ -5,7 +5,7 @@ SCRIPT_DIR="$(dirname "$0")"
 pushd "$SCRIPT_DIR"
 
 echo "Starting Zot Registry Cache..."
-docker-compose up -d
+docker compose up -d
 
 cat <<EOF
 Zot Registry Cache started!

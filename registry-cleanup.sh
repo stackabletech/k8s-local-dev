@@ -10,7 +10,7 @@ echo
 
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "Stopping and removing everything..."
-    docker-compose down -v --rmi local
+    docker compose down -v --rmi local
     echo "Cleanup complete!"
     echo "All cached registry data has been removed."
 else
