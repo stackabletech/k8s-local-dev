@@ -1,10 +1,10 @@
 mirrors:
   "docker.io":
     endpoint:
-      - "http://host.k3d.internal:5000/v2/docker-io"
+      - "http://host.k3d.internal:5000/v2/mirror/docker-io"
   "oci.stackable.tech":
     endpoint:
-      - "http://host.k3d.internal:5000/v2/stackable"
+      - "http://host.k3d.internal:5000/v2/mirror/stackable"
 configs:
   "host.k3d.internal:5000":
     tls:
