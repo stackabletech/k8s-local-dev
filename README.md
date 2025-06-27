@@ -64,3 +64,22 @@ These images should now appear in the Zot Web UI.
 Document how to push images.
 Using `docker push` returns `manifest invalid` because Zot does not support docker manifests.
 See: https://github.com/project-zot/zot/issues/2234
+
+## Help
+
+If none of the pods come up (eg: coredns), it is likely that the firewall is
+preventing taffic from the k3s node to the docker network (so the kubelet cannot
+pull via the mirror).
+
+Example error event on the Pod:
+
+```
+failed to do request: Head "https://host.k3d.internal:5000/v2/mirror/docker-io/rancher/mirrored-pause/manifests/3.6?ns=docker.io": dial tcp 172.21.0.1:5000: i/o timeout
+```
+
+You might need to manage firewall rules yourself, but this could be a good
+starting point (the IP comes from the error above):
+
+```shell
+sudo iptables -I INPUT -p tcp -d 172.21.0.1 --dport 5000 -j ACCEPT
+```
