@@ -2,7 +2,7 @@
 
 # Run from the directory that the script is in
 SCRIPT_DIR="$(dirname "$0")"
-pushd "$SCRIPT_DIR"
+pushd "$SCRIPT_DIR" > /dev/null
 
 echo "Starting Zot Registry Cache..."
 docker compose up -d
