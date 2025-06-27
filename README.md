@@ -1,7 +1,7 @@
 # Kubernetes Local Testing Environment
 
 This repo contains a bunch of scripts to bring up a local Kubernetes environment (using [k3d](https://k3d.io/), which itself is a wrapper to bring up [k3s](https://k3s.io/) clusters) and a [Zot](https://zotregistry.dev/) image registry serving as a transparent pull-through cache.
-              
+
 ## Prerequisites
 
 * You need to have [k3d](https://k3d.io)
@@ -9,11 +9,14 @@ This repo contains a bunch of scripts to bring up a local Kubernetes environment
 
 ## Quick Start
 
+> [!NOTE]
+> These scripts can be invoked from any directory.
+> Take note of the k3d config path emitted from the start script.
+
 1. Start the Zot registry:
    ```bash
    ./registry-start.sh
    ```
-
 2. Create the k3d cluster:
    ```bash
    # k3d cluster create --config k3d-config.yaml [NAME]
@@ -52,7 +55,7 @@ These images should now appear in the Zot Web UI.
 ## Management Scripts
 
 - `registry-start.sh`: Start registry services
-- `registry-stop.sh`: Stop registry services  
+- `registry-stop.sh`: Stop registry services
 - `registry-logs.sh`: View (tail) registry logs
 - `registry-cleanup.sh`: Clean up registry data (including the volume with the mirrored images)
 
@@ -61,3 +64,22 @@ These images should now appear in the Zot Web UI.
 Document how to push images.
 Using `docker push` returns `manifest invalid` because Zot does not support docker manifests.
 See: https://github.com/project-zot/zot/issues/2234
+
+## Help
+
+If none of the pods come up (eg: coredns), it is likely that the firewall is
+preventing taffic from the k3s node to the docker network (so the kubelet cannot
+pull via the mirror).
+
+Example error event on the Pod:
+
+```
+failed to do request: Head "https://host.k3d.internal:5000/v2/mirror/docker-io/rancher/mirrored-pause/manifests/3.6?ns=docker.io": dial tcp 172.21.0.1:5000: i/o timeout
+```
+
+You might need to manage firewall rules yourself, but this could be a good
+starting point (the IP comes from the error above):
+
+```shell
+sudo iptables -I INPUT -p tcp -d 172.21.0.1 --dport 5000 -j ACCEPT
+```

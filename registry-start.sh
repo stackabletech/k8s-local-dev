@@ -1,14 +1,19 @@
-#!/bin/bash
+#!/usr/bin/env -S bash -euo pipefail
 
-cd "$(dirname "$0")" || exit
+# Run from the directory that the script is in
+SCRIPT_DIR="$(dirname "$0")"
+pushd "$SCRIPT_DIR" > /dev/null
+
 echo "Starting Zot Registry Cache..."
-docker-compose up -d
+docker compose up -d
 
-echo "Zot Registry Cache started!"
-echo "Registry UI:  http://localhost:5000"
-echo "Health check: http://localhost:5000/v2/_catalog"
-echo "Metrics:      http://localhost:5000/metrics"
-echo ""
-echo ""
-echo "To use with k3d clusters, run:"
-echo "k3d cluster create --config k3d-config.yaml [cluster-name]"
+cat <<EOF
+Zot Registry Cache started!
+Registry UI:  http://localhost:5000
+Health check: http://localhost:5000/v2/_catalog
+Metrics:      http://localhost:5000/metrics
+
+
+To use with k3d clusters, run:
+k3d cluster create --config "$SCRIPT_DIR/k3d-config.yaml" [cluster-name]
+EOF
