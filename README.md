@@ -59,13 +59,26 @@ These images should now appear in the Zot Web UI.
 - `registry-logs.sh`: View (tail) registry logs
 - `registry-cleanup.sh`: Clean up registry data (including the volume with the mirrored images)
 
-## TODO
+## Push local images
 
-Document how to push images.
-Using `docker push` returns `manifest invalid` because Zot does not support docker manifests.
-See: https://github.com/project-zot/zot/issues/2234
+zot only supports OCI manifests and they are incompatible with what a `docker build` produces by default.
+
+You'll need to use a tool like [skopeo](https://github.com/containers/skopeo) to copy the images to zot.
+                            
+This will copy an image from your local docker daemon to the zot registry
+```
+ skopeo --insecure-policy copy --dest-tls-verify=false --format=oci docker-daemon:oci.stackable.tech/sdp/nifi:2.4.0-stackable0.0.0-dev docker://localhost:5000/sdp/nifi:2.4.0-stackable0.0.0-dev
+ ```
+
+You can then reference those images using the `host.k3d.internal` URL:
+
+```
+host.k3d.internal:5000/sdp/nifi:2.4.0-stackable0.0.0-dev
+```
 
 ## Help
+
+### Pods don't come up
 
 If none of the pods come up (eg: coredns), it is likely that the firewall is
 preventing taffic from the k3s node to the docker network (so the kubelet cannot
@@ -83,3 +96,9 @@ starting point (the IP comes from the error above):
 ```shell
 sudo iptables -I INPUT -p tcp -d 172.21.0.1 --dport 5000 -j ACCEPT
 ```
+
+### ImagePullBackOff
+
+One reason for this could be that you hibernated or restarted your computer.
+Sometimes the internal DNS resolution in k3d doesn't work afterwards and can't find the registry anymore.
+In that case the only solution I found so far is to create a new cluster but there _might_ be other ways.

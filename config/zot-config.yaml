@@ -28,21 +28,30 @@ extensions:
     registries:
       - urls: ["https://docker.io"]
         onDemand: true
-        maxRetries: 3
-        retryDelay: "5m"
+        maxRetries: 10
+        retryDelay: "30s"
         tlsVerify: true
         content:
           - prefix: "**"
             destination: "/mirror/docker-io"
 
-      - urls: ["https://oci.stackable.tech"]
+      - urls: ["https://oci.stackable.tech", "https://docker.stackable.tech"]
         onDemand: true
-        maxRetries: 3
-        retryDelay: "5m"
+        maxRetries: 10
+        retryDelay: "30s"
         tlsVerify: true
         content:
           - prefix: "**"
             destination: "/mirror/stackable"
+
+      - urls: ["https://quay.io"]
+        onDemand: true
+        maxRetries: 10
+        retryDelay: "30s"
+        tlsVerify: true
+        content:
+          - prefix: "**"
+            destination: "/mirror/quay"
 
   search:
     enable: true
