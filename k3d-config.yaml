@@ -17,3 +17,18 @@ options:
       - arg: --disable-default-registry-endpoint
         nodeFilters:
           - all
+# These parameters override the default settings for the available storage because they are percentage based by default and often not a good fit for local development.
+# When setting one of the settings all others will be defaulted to 0 which is why we list them all
+# https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/
+      - arg: --kubelet-arg=eviction-hard=nodefs.available<5Gi,imagefs.available<5Gi,memory.available<500Mi,nodefs.inodesFree<5%,imagefs.inodesFree<5%
+        nodeFilters:
+          - server:*
+          - agent:*
+      - arg: --kubelet-arg=eviction-soft=nodefs.available<10Gi,imagefs.available<10Gi,memory.available<1Gi
+        nodeFilters:
+          - server:*
+          - agent:*
+      - arg: --kubelet-arg=eviction-soft-grace-period=nodefs.available=2m,imagefs.available=2m,memory.available=30s
+        nodeFilters:
+          - server:*
+          - agent:*
