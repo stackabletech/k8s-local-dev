@@ -1,6 +1,6 @@
 services:
   zot-cache:
-    image: ghcr.io/project-zot/zot:latest
+    image: ghcr.io/project-zot/zot:v2.1.11
     container_name: zot-cache
     restart: unless-stopped
     command: ["serve", "/etc/zot/config.yaml"]

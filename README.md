@@ -28,6 +28,8 @@ This repo contains a bunch of scripts to bring up a local Kubernetes environment
 The Zot registry caches images from:
 - Docker Hub (`docker.io`) → `/mirror/docker-io`
 - Stackable registry (`oci.stackable.tech`) → `/mirror/stackable`
+- Old Stackable registry (`docker.stackable.tech`) -> `/mirror/stackable`
+- Quay.io (`quay.io`) -> `/mirror/quay`
 
 Features:
 - On-demand image synchronization
@@ -81,7 +83,7 @@ host.k3d.internal:5000/sdp/nifi:2.4.0-stackable0.0.0-dev
 ### Pods don't come up
 
 If none of the pods come up (eg: coredns), it is likely that the firewall is
-preventing taffic from the k3s node to the docker network (so the kubelet cannot
+preventing traffic from the k3s node to the docker network (so the kubelet cannot
 pull via the mirror).
 
 Example error event on the Pod:
