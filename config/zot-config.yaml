@@ -31,6 +31,7 @@ extensions:
         maxRetries: 10
         retryDelay: "30s"
         tlsVerify: true
+        syncTimeout: "1h"
         content:
           - prefix: "**"
             destination: "/mirror/docker-io"
@@ -40,6 +41,7 @@ extensions:
         maxRetries: 10
         retryDelay: "30s"
         tlsVerify: true
+        syncTimeout: "1h"
         content:
           - prefix: "**"
             destination: "/mirror/stackable"
@@ -49,6 +51,7 @@ extensions:
         maxRetries: 10
         retryDelay: "30s"
         tlsVerify: true
+        syncTimeout: "1h"
         content:
           - prefix: "**"
             destination: "/mirror/quay"
